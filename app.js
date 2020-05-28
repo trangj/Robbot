@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
-const config = require("./config");
-const token = process.env.TOKEN || config.token;
-const prefix = process.env.PREFIX || config.prefix;
+const token = process.env.TOKEN;
+const prefix = process.env.PREFIX;
 const client = new Discord.Client();
 
 client.once("ready", () => {

@@ -1,5 +1,3 @@
-const config = require("../config");
-
 module.exports = {
   name: "help",
   description: "List all avaliable commands",
