@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config");
+const token = process.env.TOKEN || config.token;
+const prefix = process.env.PREFIX || config.prefix;
 const client = new Discord.Client();
 
 client.once("ready", () => {
@@ -8,9 +10,9 @@ client.once("ready", () => {
 });
 
 client.on("message", (message) => {
-  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-  const args = message.content.slice(config.prefix.length).split(/ +/);
+  const args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   if (!client.commands.has(commandName)) return;
@@ -19,7 +21,7 @@ client.on("message", (message) => {
 
   if (command.args && !args.length) {
     return message.reply(
-      `you need to provide additional arguments.\nTry: ${config.prefix}${command.name} ${command.usage}`
+      `you need to provide additional arguments.\nTry: ${prefix}${command.name} ${command.usage}`
     );
   }
 
@@ -33,7 +35,7 @@ client.on("message", (message) => {
   }
 });
 
-client.login(config.token);
+client.login(token);
 client.commands = new Discord.Collection();
 
 const commandFiles = fs
