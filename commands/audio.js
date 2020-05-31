@@ -12,6 +12,7 @@ module.exports = {
     const audio = [
       "",
       "https://www.mboxdrive.com/last%20moments%20before%20jew%20was%20murdered%20by%20ss.mp3",
+      "https://drive.google.com/file/d/1ZD0Ub8pt_0OULgy0qaaZrpjlR5EcVYRk/preview?usp=sharing",
     ];
 
     if (args[0] < audio.length) {
