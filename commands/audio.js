@@ -1,25 +1,16 @@
+const ytdl = require("ytdl-core");
+
 module.exports = {
   name: "audio",
-  description: "Play an audio clip of Robert",
+  description: "Play an audio from YouTube",
   args: true,
-  usage: "<# from 0-6>",
+  usage: "<YouTube URL>",
   execute(message, args) {
-    if (!message.member.voice.channel) {
-      message.reply("you have to be in a voice channel to use this command.");
-      return;
-    }
-
-    const audio = [
-      "",
-      "https://www.mboxdrive.com/last%20moments%20before%20jew%20was%20murdered%20by%20ss.mp3",
-      "https://drive.google.com/file/d/1ZD0Ub8pt_0OULgy0qaaZrpjlR5EcVYRk/preview?usp=sharing",
-    ];
-
-    if (args[0] < audio.length) {
-      message.member.voice.channel
-        .join()
-        .then((connection) => {
-          const dispatcher = connection.play(audio[args[0]]);
+    if (args[0]) {
+      ytdl.getInfo(args[0]).then((song) => {
+        message.member.voice.channel.join().then((connection) => {
+          const dispatcher = connection.play(ytdl(song.video_url));
+          dispatcher.setVolume(0.5);
           dispatcher.on("start", () => {
             console.log("audio has started");
           });
@@ -28,12 +19,10 @@ module.exports = {
             connection.disconnect();
           });
           dispatcher.on("error", console.error);
-        })
-        .catch((err) => {
-          console.log(err);
         });
+      });
     } else {
-      message.reply("pick an argument from 0-6.");
+      message.reply("you need to provide a Youtube link.");
     }
   },
 };
