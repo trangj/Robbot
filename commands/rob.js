@@ -31,7 +31,7 @@ module.exports = {
     } else if (args[0] == "13") {
       message.channel.send("https://imgur.com/gZdFr3U");
     } else {
-      message.reply("pick an argument from 1-6.");
+      message.reply("pick an argument from 1-13.");
     }
   },
 };
