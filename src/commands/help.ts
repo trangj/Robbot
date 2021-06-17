@@ -1,8 +1,10 @@
-module.exports = {
+import { Message } from "discord.js";
+
+export const help = {
   name: "help",
   description: "List all avaliable commands",
   usage: "<command name>",
-  execute(message, args) {
+  execute(message: Message) {
     let data = [];
     const commands = message.client.commands;
     data.push("here is a list of avaliable commands:");

@@ -2,21 +2,25 @@
   "name": "robbot",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "server": "nodemon app.js"
+    "start": "node dist/app.js",
+    "server": "nodemon --exec ts-node --files src/app.ts",
+    "postinstall": "tsc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.2.0",
-    "ffmpeg-static": "^4.2.2",
-    "opusscript": "0.0.7",
-    "ytdl-core": "^2.1.7"
+    "@discordjs/opus": "^0.5.3",
+    "discord.js": "^12.5.3",
+    "ffmpeg-static": "^4.3.0",
+    "ytdl-core": "^4.8.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@types/node": "^10.17.23",
+    "nodemon": "^2.0.4",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
   }
 }
