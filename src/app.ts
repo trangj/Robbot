@@ -10,6 +10,13 @@ client.once("ready", () => {
 	console.log("Ready!");
 });
 
+// initializing the bot
+client.login(token);
+client.commands = new Discord.Collection();
+client.commands.set(audio.name, audio);
+client.commands.set(help.name, help);
+client.commands.set(rob.name, rob);
+
 // message listener
 client.on("message", (message: Message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return null;
@@ -45,11 +52,3 @@ client.on("message", (message: Message) => {
 
 	return null;
 });
-
-// initializing the bot
-client.login(token);
-client.commands = new Discord.Collection();
-client.commands.set(audio.name, audio);
-client.commands.set(help.name, help);
-client.commands.set(rob.name, rob);
-

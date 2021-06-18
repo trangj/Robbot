@@ -7,7 +7,7 @@ let queue: string[] = [];
 
 export const audio = {
 	name: "audio",
-	description: "Play an audio from YouTube",
+	description: "Play audio from YouTube",
 	args: true,
 	usage: "play <YouTube URL>, stop, pause, resume, queue <YouTube URL>, skip",
 	execute(message: Message, args: string[]) {
@@ -27,12 +27,16 @@ export const audio = {
 				message.reply("resumed audio playback.");
 				break;
 			case "queue":
+				if (!args[1]) { message.reply("you are missing a YouTube link to play."); break; }
 				queue.push(args[1]);
-				message.reply(`added ${args[1]} to queue.`);
+				message.reply(`added your link to queue.`);
 				break;
 			case "skip":
-				if (!queue.length) message.reply("there are no more items in queue");
+				if (!queue.length) { message.reply("there are no more items in queue"); break; };
 				play(message, queue.shift());
+				break;
+			case "list":
+				message.reply(`these are the links in queue: ${queue.join(', ')}`);
 				break;
 			default:
 				break;
@@ -46,7 +50,7 @@ async function play(message: Message, url: string) {
 		if (!url) throw Error("you are missing youtube link to play!");
 		connection = await channel.join();
 		dispatcher = connection
-			.play(ytdl(url, { filter: "audioonly" }))
+			.play(ytdl(url, { filter: "audioonly" }), { volume: 0.5 })
 			.on("finish", () => {
 				if (queue.length) {
 					play(message, queue.shift());
